@@ -1,0 +1,12 @@
+/* Using comments like this helps some linters */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-truckYellow;
+    margin: 0;
+    padding: 0;
+  }
+}
