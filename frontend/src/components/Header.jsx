@@ -10,7 +10,7 @@ export default function Header({ setView }) {
     navigate('/login');
   };
 
-  // Logic to handle logo click and return to marketplace
+  
   const handleLogoClick = () => {
     navigate('/marketplace');
     if (setView) setView('marketplace');

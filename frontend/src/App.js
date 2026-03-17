@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; // ✅ useState import pannanum
+import React, { useState } from 'react'; 
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Login from './pages/Login';
 import Marketplace from './pages/Marketplace';
@@ -6,10 +6,10 @@ import Signup from './pages/signup';
 import Header from './components/Header'; 
 import Footer from './components/Footer'; 
 
-// Layout wrapper to handle conditional Header/Footer
+
 function Layout({ children, view, setView }) {
   const location = useLocation();
-  // Login matrum Signup pages-la Header/Footer vendaam-na intha condition help pannum
+  
   const isAuthPage = location.pathname === '/login' || location.pathname === '/signup' || location.pathname === '/';
 
   return (
@@ -26,7 +26,7 @@ function Layout({ children, view, setView }) {
 }
 
 function App() {
-  // ✅ 1. State-ah inga define pannanum, appo thaan Header matrum Footer-ku anuppa mudiyum
+  
   const [view, setView] = useState('marketplace');
 
   return (

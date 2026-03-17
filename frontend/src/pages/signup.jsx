@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 export default function Signup() {
-    // 1. Data Structure Check: Name, Email, Password exactly match backend
+    
     const [formData, setFormData] = useState({ name: '', email: '', password: '' });
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -13,13 +13,13 @@ export default function Signup() {
         setLoading(true);
         
         try {
-            // ✅ Check: Port 5000 correct-ah? Server run aagutha?
+            
             const res = await axios.post("http://localhost:5000/api/users/signup", formData);
             
             alert("Signup Successful! Redirecting to Login...");
             navigate('/login');
         } catch (err) {
-            // ✅ Dynamic Alert: Detailed error message kaattum
+            
             const errorMsg = err.response?.data?.message || "Signup Failed! Check if Backend is running.";
             console.error("Signup Error Details:", err.response?.data);
             alert(errorMsg); 

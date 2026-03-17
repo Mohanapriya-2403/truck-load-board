@@ -15,7 +15,7 @@ export default function Login() {
     try {
       // 1. Backend API calling
       const res = await axios.post("http://localhost:5000/api/users/login", { 
-        email: email.trim(), // Added trim() to avoid space errors
+        email: email.trim(), 
         password: password 
       });
       
@@ -64,7 +64,7 @@ export default function Login() {
               <label className="text-[10px] font-black uppercase text-slate-400 tracking-widest ml-4">Email Address</label>
               <input 
                 type="email" 
-                placeholder="keerthi2004@gmail.com" 
+                placeholder="Enter Your Email Address" 
                 className="w-full p-4 mt-2 bg-slate-50 rounded-2xl border-2 border-transparent focus:border-red-600 outline-none font-bold shadow-sm transition-all" 
                 value={email} 
                 onChange={e => setEmail(e.target.value)} 
@@ -76,7 +76,7 @@ export default function Login() {
               <label className="text-[10px] font-black uppercase text-slate-400 tracking-widest ml-4">Password</label>
               <input 
                 type="password" 
-                placeholder="••••••••" 
+                placeholder="Enter Your Password" 
                 className="w-full p-4 mt-2 bg-slate-50 rounded-2xl border-2 border-transparent focus:border-red-600 outline-none font-bold shadow-sm transition-all" 
                 value={password} 
                 onChange={e => setPassword(e.target.value)} 

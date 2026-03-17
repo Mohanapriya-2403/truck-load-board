@@ -2,8 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 
-// 1. Schema Definition
-// Ungaloda loads-kaka database structure
+
 const loadSchema = new mongoose.Schema({
     origin: String,
     destination: String,
@@ -11,18 +10,15 @@ const loadSchema = new mongoose.Schema({
     pallets: Number,
     price: Number,
     postedBy: String,
-    isBooked: { type: Boolean, default: false }
+  
+    status: { type: String, default: 'available' },
+   
+    bookedBy: { type: String, default: '' }
 });
 
-// 2. Model Creation
-// 'Load' model-ah database kooda connect pannuthu
 const Load = mongoose.models.Load || mongoose.model('Load', loadSchema);
 
-// 3. API Endpoints
 
-/** * @route   GET /api/loads/all
- * @desc    Fetch all shipments for the marketplace
- */
 router.get('/all', async (req, res) => {
     try {
         const loads = await Load.find();
@@ -32,12 +28,12 @@ router.get('/all', async (req, res) => {
     }
 });
 
-/** * @route   POST /api/loads/add
- * @desc    Create a new shipment
- */
+
 router.post('/add', async (req, res) => {
     try {
-        const newLoad = new Load(req.body);
+        // Ensuring new loads start as 'available'
+        const loadData = { ...req.body, status: 'available' };
+        const newLoad = new Load(loadData);
         await newLoad.save();
         res.json(newLoad);
     } catch (err) { 
@@ -45,25 +41,29 @@ router.post('/add', async (req, res) => {
     }
 });
 
-/** * @route   PATCH /api/loads/book/:id
- * @desc    Mark a specific shipment as booked
- */
-router.patch('/book/:id', async (req, res) => {
+
+router.put('/book/:id', async (req, res) => {
     try {
-        const updated = await Load.findByIdAndUpdate(
-            req.params.id, 
-            { isBooked: true }, 
+        const updatedLoad = await Load.findByIdAndUpdate(
+            req.params.id,
+            { 
+                status: 'booked', 
+                bookedBy: req.body.bookedBy 
+            },
             { new: true }
         );
-        res.json(updated);
-    } catch (err) { 
-        res.status(500).json({ message: "Error booking load", error: err.message }); 
+
+        if (!updatedLoad) {
+            return res.status(404).json({ message: "Load not found" });
+        }
+
+        res.json(updatedLoad);
+    } catch (err) {
+        res.status(500).json({ message: "Booking process failed", error: err.message });
     }
 });
 
-/** * @route   DELETE /api/loads/delete/:id
- * @desc    Delete a single shipment (owner only action)
- */
+
 router.delete('/delete/:id', async (req, res) => {
     try {
         const deletedLoad = await Load.findByIdAndDelete(req.params.id);
@@ -76,12 +76,9 @@ router.delete('/delete/:id', async (req, res) => {
     }
 });
 
-/** * @route   DELETE /api/loads/clear-all
- * @desc    Danger: Deletes every shipment in the database
- */
+
 router.delete('/clear-all', async (req, res) => {
     try {
-        // {} means match everything and delete
         const result = await Load.deleteMany({});
         res.json({ 
             message: "All shipments cleared!", 

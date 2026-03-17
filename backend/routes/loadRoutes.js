@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 
-// Schema & Model inside the route for simplicity
+
 const loadSchema = new mongoose.Schema({
     origin: { type: String, required: true },
     destination: { type: String, required: true },
@@ -14,7 +14,7 @@ const loadSchema = new mongoose.Schema({
 
 const Load = mongoose.model('Load', loadSchema);
 
-// POST: http://localhost:5000/api/loads/add
+
 router.post('/add', async (req, res) => {
     try {
         const newLoad = new Load(req.body);
@@ -25,7 +25,7 @@ router.post('/add', async (req, res) => {
     }
 });
 
-// GET: http://localhost:5000/api/loads/all
+
 router.get('/all', async (req, res) => {
     try {
         const loads = await Load.find().sort({ createdAt: -1 });

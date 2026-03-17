@@ -9,7 +9,7 @@ export default function Marketplace() {
 
   const fetchLoads = async () => {
     try {
-      // Must include /all
+      
       const res = await axios.get("http://localhost:5000/api/loads/all");
       setLoads(res.data);
     } catch (err) { console.error(err); }
@@ -20,7 +20,7 @@ export default function Marketplace() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Must include /add
+      
       await axios.post("http://localhost:5000/api/loads/add", formData);
       alert("🚛 Load Posted!");
       setFormData({ origin: '', destination: '', weight: '', pallets: '', price: '' });

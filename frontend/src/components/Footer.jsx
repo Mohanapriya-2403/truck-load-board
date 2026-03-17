@@ -1,6 +1,6 @@
 import React from 'react';
 
-// ✅ setView prop-ah bracket-kulla (destructuring) receive pannuroom
+
 export default function Footer({ setView }) {
   return (
     <footer className="bg-slate-50 border-t border-slate-200 py-10 px-8 mt-auto">

@@ -4,8 +4,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        truckYellow: '#facc15', // Amber-400
-        truckRed: '#dc2626',    // Red-600
+        truckYellow: '#facc15', 
+        truckRed: '#dc2626',    
       }
     },
   },
